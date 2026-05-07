@@ -1,0 +1,87 @@
+{
+  "version": "2",
+  "flowTitle": "📱 Alertes Quotidiennes WhatsApp — Location4You",
+  "trigger": {
+    "valid": true,
+    "displayName": "Chaque jour à 8h00 (Casablanca)",
+    "type": "PIECE_TRIGGER",
+    "settings": {
+      "pieceName": "@taskade/automade-internalpiece-schedule",
+      "pieceVersion": "1.0.0",
+      "triggerName": "schedule.daily",
+      "input": {
+        "timezone": "Africa/Casablanca",
+        "timeOfDay": "8:00 AM"
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "744c5130-29be-4f60-8028-3a865b46eca4",
+      "valid": false,
+      "displayName": "Récupérer la flotte de véhicules",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-taskade",
+        "pieceVersion": "1.0.0",
+        "actionName": "tasks.find",
+        "input": {
+          "query": "",
+          "projectId": {
+            "type": "flow-template-variable-input-type",
+            "id": "3LNZmw7ySXyqM82m"
+          },
+          "rowsToReturn": "all_matching_rows"
+        }
+      }
+    },
+    {
+      "name": "8fb04828-838b-4d87-bbcf-0e3ad7ec309c",
+      "valid": false,
+      "displayName": "Récupérer les contrats actifs",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-taskade",
+        "pieceVersion": "1.0.0",
+        "actionName": "tasks.find",
+        "input": {
+          "query": "actif",
+          "projectId": {
+            "type": "flow-template-variable-input-type",
+            "id": "nAb7RCkG4GmCLX41"
+          },
+          "rowsToReturn": "all_matching_rows"
+        }
+      }
+    },
+    {
+      "name": "65ade286-afff-40dd-8826-ff04c751c5d8",
+      "valid": false,
+      "displayName": "Génération IA — Message d'alerte WhatsApp",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-openai",
+        "pieceVersion": "1.0.0",
+        "actionName": "ai.ask",
+        "input": {
+          "model": "openai/gpt-4o-mini",
+          "prompt": "Tu es l'assistant Location4You. Analyse les données de flotte et contrats. Génère un message WhatsApp d'alerte quotidien. Identifie: VT/Assurance/CG expirant dans 15j (CRITIQUE) ou 30j (ATTENTION), contrats se terminant dans 3j, paiements manquants. Si rien: 'RAS'. Commence par: Alertes Location4You:"
+        }
+      }
+    }
+  ],
+  "variables": {
+    "3LNZmw7ySXyqM82m": {
+      "id": "3LNZmw7ySXyqM82m",
+      "rank": "V",
+      "type": "string",
+      "format": "taskade-project-id"
+    },
+    "nAb7RCkG4GmCLX41": {
+      "id": "nAb7RCkG4GmCLX41",
+      "rank": "k",
+      "type": "string",
+      "format": "taskade-project-id"
+    }
+  }
+}

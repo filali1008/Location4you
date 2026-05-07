@@ -1,0 +1,122 @@
+import React, { useEffect, useState } from 'react';
+import { Plus, Search, AlertTriangle, ExternalLink, Pencil, Trash2, Info, Upload } from 'lucide-react';
+import { getVehicules, createVehicule, updateVehicule, deleteVehicule, getChargesVehicules, daysUntil, formatMAD } from '@/lib/api';
+import { StatusBadge } from '@/components/shared/StatusBadge';
+import { DayBadge, alertLevel } from '@/components/shared/DayBadge';
+import { ImportDialog } from '@/components/shared/ImportDialog';
+import { toast } from 'sonner';
+
+const STATUT_LABELS: Record<string, string> = { disponible: 'Disponible', enlocation: 'En location', enmaintenance: 'En maintenance', horsservice: 'Hors service', vendu: 'Vendu' };
+
+function hasAlert(v: any) {
+  return [v.date_prochaine_visite_technique, v.date_fin_assurance, v.date_fin_carte_grise].some(d => {
+    const days = daysUntil(d); return days !== Infinity && days <= 30;
+  });
+}
+function hasCritical(v: any) {
+  return [v.date_prochaine_visite_technique, v.date_fin_assurance, v.date_fin_carte_grise].some(d => alertLevel(d) === 'critical');
+}
+
+const EMPTY: any = { immatriculation: '', marque: '', modele: '', km_actuel: '', statut: 'disponible', tarif_reference: '', prix_location: '', valeur_achat: '', prix_revente: '', kr_due: '', organisme_financement: '', mensualite_credit: '', mois_restant_credit: '', reste_a_payer: '', client: '', conducteur: '', tel: '', lien_dossier_drive: '', date_mise_en_parc: '', date_derniere_vidange: '', date_prochaine_visite_technique: '', date_fin_assurance: '', date_fin_carte_grise: '' };
+
+const FIELDS: [string, string, string][] = [
+  ['immatriculation', 'Immatriculation *', 'text'], ['marque', 'Marque', 'text'], ['modele', 'Modèle *', 'text'],
+  ['km_actuel', 'KM Actuel', 'number'], ['tarif_reference', 'Tarif Réf. (MAD)', 'number'], ['prix_location', 'Prix Location (MAD)', 'number'],
+  ['valeur_achat', 'Valeur Achat (MAD)', 'number'], ['prix_revente', 'Prix Revente (MAD)', 'number'], ['kr_due', 'KR Due', 'number'],
+  ['organisme_financement', 'Organisme Financement', 'text'], ['mensualite_credit', 'Mensualité (MAD)', 'number'],
+  ['mois_restant_credit', 'Mois Restants', 'number'], ['reste_a_payer', 'Reste à Payer (MAD)', 'number'],
+  ['client', 'Client', 'text'], ['conducteur', 'Conducteur', 'text'], ['tel', 'Téléphone', 'text'],
+  ['date_mise_en_parc', 'Mise en Parc', 'date'], ['date_derniere_vidange', 'Dernière Vidange', 'date'],
+  ['date_prochaine_visite_technique', 'Prochaine VT', 'date'], ['date_fin_assurance', 'Fin Assurance', 'date'], ['date_fin_carte_grise', 'Fin CG', 'date'],
+];
+
+function VehicleDetailDialog({ v, charges, onEdit, onClose }: { v: any; charges: any[]; onEdit: () => void; onClose: () => void }) {
+  const TYPE_LABELS: Record<string, string> = { carburant: 'Carburant', lavage: 'Lavage', vidange: 'Vidange', visite: 'Visite technique', assurance: 'Assurance', fradmin: 'Frais admin', infractions: 'Infractions', peages: 'Péages', parking: 'Parking', adblue: 'AdBlue', reparation: 'Réparation', autres: 'Autres' };
+  const vCharges = charges.filter(c => c.vehicule_id === v.id).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
+  const diff = (v.prix_location || 0) - (v.tarif_reference || 0);
+  const diffPos = diff >= 0;
+  return (
+    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={onClose}>
+      <div className="bg-card rounded-2xl border border-border w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
+        <div className="flex items-center justify-between p-5 border-b border-border">
+          <div><h3 className="text-lg font-bold">{v.immatriculation}</h3><p className="text-sm text-muted-foreground">{v.marque} {v.modele}</p></div>
+          <div className="flex items-center gap-2"><StatusBadge status={v.statut} /><button onClick={onClose} className="p-1.5 rounded-xl hover:bg-muted text-muted-foreground">✕</button></div>
+        </div>
+        <div className="p-5 space-y-4 text-sm">
+          <div>
+            <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Identification</h4>
+            <div className="grid grid-cols-2 gap-2">
+              <div><span className="text-muted-foreground">KM:</span> <span className="font-medium">{(v.km_actuel || 0).toLocaleString()} km</span></div>
+              <div><span className="text-muted-foreground">Mise en parc:</span> <span className="font-medium">{v.date_mise_en_parc || '—'}</span></div>
+            </div>
+          </div>
+          <div className="border-t border-border pt-4">
+            <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Documents & Échéances</h4>
+            <div className="grid grid-cols-2 gap-3">
+              <DayBadge dateStr={v.date_prochaine_visite_technique} label="Visite Technique" />
+              <DayBadge dateStr={v.date_fin_assurance} label="Assurance" />
+              <DayBadge dateStr={v.date_fin_carte_grise} label="Carte Grise" />
+              <DayBadge dateStr={v.date_derniere_vidange} label="Dernière Vidange" />
+            </div>
+          </div>
+          <div className="border-t border-border pt-4">
+            <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Informations Financières</h4>
+            <div className="grid grid-cols-2 gap-2">
+              <div><span className="text-muted-foreground">Valeur achat:</span> <span className="font-medium">{formatMAD(v.valeur_achat)}</span></div>
+              <div><span className="text-muted-foreground">Prix location:</span> <span className="font-medium">{formatMAD(v.prix_location)}</span></div>
+              <div><span className="text-muted-foreground">Tarif référence:</span> <span className="font-medium">{formatMAD(v.tarif_reference)}</span></div>
+              <div><span className="text-muted-foreground">Prix revente:</span> <span className="font-medium">{formatMAD(v.prix_revente)}</span></div>
+              <div><span className="text-muted-foreground">KR Due:</span> <span className="font-medium">{v.kr_due || '—'}</span></div>
+              <div><span className="text-muted-foreground">Différence:</span> <span className={`font-semibold ${diffPos ? 'text-green-600' : 'text-red-500'}`}>{diffPos ? '+' : ''}{formatMAD(diff)}</span></div>
+            </div>
+          </div>
+          {v.organisme_financement && (
+            <div className="border-t border-border pt-4">
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Crédit / Financement</h4>
+              <div className="grid grid-cols-2 gap-2">
+                <div><span className="text-muted-foreground">Organisme:</span> <span className="font-medium">{v.organisme_financement}</span></div>
+                <div><span className="text-muted-foreground">Mensualité:</span> <span className="font-medium">{formatMAD(v.mensualite_credit)}</span></div>
+                <div><span className="text-muted-foreground">Mois restants:</span> <span className="font-medium">{v.mois_restant_credit || '—'}</span></div>
+                <div><span className="text-muted-foreground">Reste à payer:</span> <span className="font-medium">{formatMAD(v.reste_a_payer)}</span></div>
+              </div>
+            </div>
+          )}
+          {v.client && (
+            <div className="border-t border-border pt-4">
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Affectation Actuelle</h4>
+              <div className="space-y-1">
+                <div><span className="text-muted-foreground">Client:</span> <span className="font-medium">{v.client}</span></div>
+                <div><span className="text-muted-foreground">Conducteur:</span> <span className="font-medium">{v.conducteur || '—'}</span></div>
+                {v.tel && <div><span className="text-muted-foreground">Tél:</span> <a href={`tel:${v.tel}`} className="text-primary font-medium">{v.tel}</a></div>}
+              </div>
+            </div>
+          )}
+          <div className="border-t border-border pt-4">
+            <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Dossier Drive</h4>
+            {v.lien_dossier_drive
+              ? <a href={v.lien_dossier_drive} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-blue-600 text-white px-3 py-1.5 rounded-xl text-sm hover:bg-blue-700"><ExternalLink className="w-3.5 h-3.5" />Ouvrir le Dossier Drive</a>
+              : <p className="text-muted-foreground text-sm">Aucun dossier Drive configuré</p>}
+          </div>
+          {vCharges.length > 0 && (
+            <div className="border-t border-border pt-4">
+              <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">5 Dernières Charges</h4>
+              <div className="space-y-1.5">
+                {vCharges.map((c: any) => (
+                  <div key={c.id} className="flex items-center justify-between text-xs bg-muted/40 rounded-lg px-3 py-1.5">
+                    <span className="text-muted-foreground">{c.date}</span>
+                    <span>{TYPE_LABELS[c.type_charge] || c.type_charge}</span>
+                    <span className="font-medium">{formatMAD(c.montant)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="flex justify-end gap-3 p-5 border-t border-border">
+          <button onClick={onClose} className="px-4 py-2 rounded-xl border border-border text-sm hover:bg-muted">Fermer</button>
+          <button onClick={onEdit} className="px-4 py-2 rounded-xl bg-primary text-primary-foreground text-sm font-medium hover:opacity-90">Modifier</button>
+        </div>
+      </div>
+    </div>
+  );
+}

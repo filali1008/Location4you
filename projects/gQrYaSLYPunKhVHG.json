@@ -1,0 +1,437 @@
+{
+  "root": {
+    "type": "root",
+    "children": [
+      {
+        "type": "text",
+        "id": "cfc1ee24-02af-4b0b-b9f8-d266510c9c2c",
+        "text": {
+          "ops": [
+            {
+              "insert": "Location4You ERP — Build Memory"
+            },
+            {
+              "insert": "\n",
+              "attributes": {
+                "paragraph": true
+              }
+            }
+          ]
+        },
+        "format": null,
+        "collapsed": false,
+        "completed": false,
+        "children": [
+          {
+            "type": "text",
+            "id": "524ab2b4-cfce-4d75-8e5e-c9cd5a5b64bf",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Projects Created",
+                  "attributes": {}
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "h1",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": true,
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "998e1994-7cd8-4ce7-a7c9-a169ccf13db1",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Flotte Véhicules: 3LNZmw7ySXyqM82m | Contrats: nAb7RCkG4GmCLX41 | Factures: X7YWNiUT1n9fQePQ",
+                  "attributes": {}
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "bullet",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "0a0d2821-dd77-420e-9fca-49ef324f6fe5",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Charges Véhicules: b9xrrH28J7oSkm4h | Charges Générales: SXUpsjnsAa8cBK7r | Sinistres: cqbUcMZbf9JETjgb | Planning: Y27psoHyzg5QjnpS",
+                  "attributes": {}
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "bullet",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "f985307c-8cf0-4f5d-ad1f-ab974c3a1112",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Agent ID: 01KR0VM3FWZ0NZ64H32ZBHPT1G | Public URL: https://www.taskade.com/a/01KR0VM3G63F1SHD6V3S1BQCER",
+                  "attributes": {}
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "bullet",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "ea310871-3da0-45f9-b888-c65be47f7f76",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Alert Workflow: 01KR0VNAXRE15HSZVRZ2YA9TX9 (daily 8am Casablanca)",
+                  "attributes": {}
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "bullet",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "0847b3ad-3529-4e52-afec-979e4c994c33",
+            "text": {
+              "ops": [
+                {
+                  "insert": "App Build: COMPLETE — All 11 pages built",
+                  "attributes": {}
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "h1",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": true,
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+            "text": {
+              "ops": [
+                {
+                  "insert": "9 New Features — COMPLETE",
+                  "attributes": {}
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "h1",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": true,
+            "children": [
+              {
+                "type": "text",
+                "id": "b1c2d3e4-f5a6-7890-bcde-f12345678901",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "F1: ImportDialog shared component (CSV, template download, validation, preview) — all pages",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "bullet",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": true,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "c2d3e4f5-a6b7-8901-cdef-123456789012",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "F2: Auto Vehicle sync on Contract save (statut/client/conducteur) — in api.ts",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "bullet",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": true,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "d3e4f5a6-b7c8-9012-defa-234567890123",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "F3: KM Actuel field on VehicleCharge form (Vidange/VT/Réparation/AdBlue) → auto-updates vehicle",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "bullet",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": true,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "e4f5a6b7-c8d9-0123-efab-345678901234",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "F4: VT/Assurance/Vidange date fields on ChargeVehicule → auto-updates vehicle + 2-level Dashboard alerts (15j/30j)",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "bullet",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": true,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "f5a6b7c8-d9e0-1234-fabc-456789012345",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "F5: Flotte simplified table (no Conducteur/Tel cols) + VehicleDetailDialog (7 sections) + Info icon + compact DayBadge 2-level",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "bullet",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": true,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "a6b7c8d9-e0f1-2345-abcd-567890123456",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "F6: Locations enriched: permis_validite, 2nd driver, limitation KM, SignaturePad, Import button",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "bullet",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": true,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "b7c8d9e0-f1a2-3456-bcde-678901234567",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "F7: Auto-invoice on contract Terminé (createContrat/updateContrat in api.ts)",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "bullet",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": true,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "c8d9e0f1-a2b3-4567-cdef-789012345678",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "F8: SignaturePad in Locations (already existed from prior session)",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "bullet",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": true,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "d9e0f1a2-b3c4-5678-defa-890123456789",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "F9: Import buttons on Charges, Factures, Sinistres pages",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "bullet",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": true,
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "preferences": {
+    "defaultView": "list",
+    "avatar": {
+      "type": "emoji",
+      "value": "📈"
+    }
+  }
+}

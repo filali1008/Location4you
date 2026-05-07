@@ -1,0 +1,62 @@
+{
+  "version": "2",
+  "flowTitle": "🔔 Alertes Contrats Imminents (Quotidien)",
+  "trigger": {
+    "valid": true,
+    "displayName": "Chaque jour à 8h00",
+    "type": "PIECE_TRIGGER",
+    "settings": {
+      "pieceName": "@taskade/automade-internalpiece-schedule",
+      "pieceVersion": "1.0.0",
+      "triggerName": "schedule.daily",
+      "input": {
+        "timezone": "Africa/Casablanca",
+        "timeOfDay": "8:00 AM"
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "b6a02126-3267-4913-a025-fd9858995042",
+      "valid": false,
+      "displayName": "Rechercher contrats actifs expirant bientôt",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-taskade",
+        "pieceVersion": "1.0.0",
+        "actionName": "tasks.find",
+        "input": {
+          "query": "Actif",
+          "projectId": {
+            "type": "flow-template-variable-input-type",
+            "id": "nAb7RCkG4GmCLX41"
+          },
+          "rowsToReturn": "all_matching_rows"
+        }
+      }
+    },
+    {
+      "name": "868cdb32-579a-4115-b418-d2e87f0a951c",
+      "valid": true,
+      "displayName": "Analyse IA — Contrats et alertes",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-openai",
+        "pieceVersion": "1.0.0",
+        "actionName": "ai.ask",
+        "input": {
+          "model": "openai/gpt-5.4-mini",
+          "prompt": "Tu es l'assistant Location4You. Analyse les contrats actifs et identifie : 1) Contrats se terminant dans 3 jours ou moins, 2) Contrats en retard de paiement. Données contrats : {{ b6a02126-3267-4913-a025-fd9858995042[\"result\"] }}. Génère un rapport d'alerte concis en français avec les actions requises."
+        }
+      }
+    }
+  ],
+  "variables": {
+    "nAb7RCkG4GmCLX41": {
+      "id": "nAb7RCkG4GmCLX41",
+      "rank": "V",
+      "type": "string",
+      "format": "taskade-project-id"
+    }
+  }
+}
